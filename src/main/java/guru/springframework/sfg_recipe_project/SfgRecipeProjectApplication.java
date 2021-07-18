@@ -1,4 +1,4 @@
-package com.example.demo;
+package guru.springframework.sfg_recipe_project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
