@@ -5,13 +5,15 @@ import guru.springframework.sfg_recipe_project.repositories.CategoryRepository;
 import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
 import guru.springframework.sfg_recipe_project.repositories.UnitOfMeasureRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 @Component
-public class DataLoader implements CommandLineRunner {
+public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private final UnitOfMeasureRepository unitOfMeasureRepository;
     private final CategoryRepository categoryRepository;
@@ -24,7 +26,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
         Optional<UnitOfMeasure> pieces = unitOfMeasureRepository.findByDescription("Pieces");
 
