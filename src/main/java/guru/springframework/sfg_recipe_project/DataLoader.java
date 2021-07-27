@@ -46,12 +46,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         bestGuacamole.setDirections("Cut the avocado:\n" +
                 "Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife " +
                 "and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.");
-        bestGuacamole.getIngredients().add(avocados);
+        bestGuacamole.addIngredient(avocados);
         bestGuacamole.setServings(4);
         bestGuacamole.setSource("Simply Recipes");
         bestGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
 
-        Recipe savedBestGuacamole = recipeRepository.save(bestGuacamole);
+        recipeRepository.save(bestGuacamole);
 
     }
 }
