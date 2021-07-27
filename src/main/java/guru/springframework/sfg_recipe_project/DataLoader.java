@@ -1,0 +1,55 @@
+package guru.springframework.sfg_recipe_project;
+
+import guru.springframework.sfg_recipe_project.domain.*;
+import guru.springframework.sfg_recipe_project.repositories.CategoryRepository;
+import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
+import guru.springframework.sfg_recipe_project.repositories.UnitOfMeasureRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
+@Component
+public class DataLoader implements CommandLineRunner {
+
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final CategoryRepository categoryRepository;
+    private final RecipeRepository recipeRepository;
+
+    public DataLoader(UnitOfMeasureRepository unitOfMeasureRepository, CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
+        this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.categoryRepository = categoryRepository;
+        this.recipeRepository = recipeRepository;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        Optional<UnitOfMeasure> pieces = unitOfMeasureRepository.findByDescription("Pieces");
+
+        Ingredient avocados = new Ingredient();
+        avocados.setAmount(BigDecimal.valueOf(2));
+        avocados.setDescription("ripe");
+        avocados.setUom(pieces.get());
+
+        Optional<Category> mexican = categoryRepository.findByCategoryName("Mexican");
+
+        Recipe bestGuacamole = new Recipe();
+        bestGuacamole.getCategories().add(mexican.get());
+        bestGuacamole.setPrepTime(10);
+        bestGuacamole.setCookTime(10);
+        bestGuacamole.setDescription("The best guacamole.");
+        bestGuacamole.setDifficulty(Difficulty.EASY);
+        bestGuacamole.setDirections("Cut the avocado:\n" +
+                "Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife " +
+                "and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.");
+        bestGuacamole.getIngredients().add(avocados);
+        bestGuacamole.setServings(4);
+        bestGuacamole.setSource("Simply Recipes");
+        bestGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+
+        Recipe savedBestGuacamole = recipeRepository.save(bestGuacamole);
+
+    }
+}
