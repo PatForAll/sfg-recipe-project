@@ -4,7 +4,6 @@ import guru.springframework.sfg_recipe_project.domain.*;
 import guru.springframework.sfg_recipe_project.repositories.CategoryRepository;
 import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
 import guru.springframework.sfg_recipe_project.repositories.UnitOfMeasureRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -33,12 +32,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Ingredient avocados = new Ingredient();
         avocados.setAmount(BigDecimal.valueOf(2));
         avocados.setDescription("ripe");
-        avocados.setUom(pieces.get());
+        pieces.ifPresent(avocados::setUom);
 
         Optional<Category> mexican = categoryRepository.findByCategoryName("Mexican");
 
         Recipe bestGuacamole = new Recipe();
-        bestGuacamole.getCategories().add(mexican.get());
+        mexican.ifPresent(category -> bestGuacamole.getCategories().add(category));
         bestGuacamole.setPrepTime(10);
         bestGuacamole.setCookTime(10);
         bestGuacamole.setDescription("The best guacamole.");
