@@ -3,35 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Recipes List</title>
+    <!-- Latest compiled and minified CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+
+    <!-- Optional theme -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script crossorigin="anonymous"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Prep Time</th>
-        <th>Cook Time</th>
-        <th>Servings</th>
-        <th>Source</th>
-        <th>URL</th>
-        <th>Directions</th>
-        <th>Difficulty</th>
-        <th>Ingredients</th>
-        <th>Categories</th>
-    </tr>
-    <tr th:each="recipe : ${recipes}">
-        <td th:text="${recipe.id}">1</td>
-        <td th:text="${recipe.description}">Soup</td>
-        <td th:text="${recipe.prepTime}">10</td>
-        <td th:text="${recipe.cookTime}">15</td>
-        <td th:text="${recipe.servings}">4</td>
-        <td th:text="${recipe.source}">Recipe Book</td>
-        <td th:text="${recipe.url}">www.recipes.de</td>
-        <td th:text="${recipe.directions}">Cook it.</td>
-        <td th:text="${recipe.difficulty}">EASY</td>
-        <td th:text="${recipe.ingredients}">Noodles</td>
-        <td th:text="${recipe.categories}">Italian</td>
-    </tr>
-</table>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h1 class="panel-title">My Recipes!</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Prep Time</th>
+                            <th>Cook Time</th>
+                            <th>Servings</th>
+                            <th>Source</th>
+                            <th>URL</th>
+                            <th>Directions</th>
+                            <th>Difficulty</th>
+                            <th>Ingredients</th>
+                            <th>Categories</th>
+                            </thead>
+                            <tr th:each="recipe : ${recipes}">
+                                <td th:text="${recipe.id}">1</td>
+                                <td th:text="${recipe.description}">Soup</td>
+                                <td th:text="${recipe.prepTime}">10</td>
+                                <td th:text="${recipe.cookTime}">15</td>
+                                <td th:text="${recipe.servings}">4</td>
+                                <td th:text="${recipe.source}">Recipe Book</td>
+                                <td th:text="${recipe.url}">www.recipes.de</td>
+                                <td th:text="${recipe.directions}">Cook it.</td>
+                                <td th:text="${recipe.difficulty}">EASY</td>
+                                <td th:text="${recipe.ingredients}">Noodles</td>
+                                <td th:text="${recipe.categories}">Italian</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

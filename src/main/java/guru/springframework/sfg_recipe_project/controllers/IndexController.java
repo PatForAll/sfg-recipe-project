@@ -14,8 +14,8 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private final CategoryRepository categoryRepository;
+    private final UnitOfMeasureRepository unitOfMeasureRepository;
 
     public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
@@ -28,8 +28,10 @@ public class IndexController {
         Optional<Category> categoryOptional = categoryRepository.findByCategoryName("Italian");
         Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
 
-        System.out.println("Category ID for '" + categoryOptional.get().getCategoryName() + "' is: " + categoryOptional.get().getId());
-        System.out.println("UOM ID for '" + unitOfMeasureOptional.get().getDescription() + "' is: " + unitOfMeasureOptional.get().getId());
+        System.out.println("Category ID for '" + categoryOptional.orElse(new Category()).getCategoryName()
+                + "' is: " + categoryOptional.orElse(new Category()).getId());
+        System.out.println("UOM ID for '" + unitOfMeasureOptional.orElse(new UnitOfMeasure()).getDescription()
+                + "' is: " + unitOfMeasureOptional.orElse(new UnitOfMeasure()).getId());
 
         return "index";
     }
