@@ -4,6 +4,7 @@ import guru.springframework.sfg_recipe_project.domain.*;
 import guru.springframework.sfg_recipe_project.repositories.CategoryRepository;
 import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
 import guru.springframework.sfg_recipe_project.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -50,6 +52,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         bestGuacamole.setSource("Simply Recipes");
         bestGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
 
+        log.debug("Add " + bestGuacamole.getDescription() + " to repository.");
         recipeRepository.save(bestGuacamole);
 
     }
