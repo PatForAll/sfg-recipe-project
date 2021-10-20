@@ -4,9 +4,11 @@ import guru.springframework.sfg_recipe_project.domain.Recipe;
 import guru.springframework.sfg_recipe_project.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+@ExtendWith(MockitoExtension.class)
 class RecipesControllerTest {
 
     RecipesController recipesController;
@@ -64,5 +67,19 @@ class RecipesControllerTest {
         verify(model, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
         Set<Recipe> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
+    }
+
+    @Test
+    void getRecipe() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipesController).build();
+
+        when(recipeService.findById(anyLong())).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipes/show/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipes/show"));
     }
 }

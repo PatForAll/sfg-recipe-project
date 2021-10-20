@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Recipes List</title>
@@ -32,27 +32,11 @@
                             <th>ID</th>
                             <th>Description</th>
                             <th>Prep Time</th>
-                            <th>Cook Time</th>
-                            <th>Servings</th>
-                            <th>Source</th>
-                            <th>URL</th>
-                            <th>Directions</th>
-                            <th>Difficulty</th>
-                            <th>Ingredients</th>
-                            <th>Categories</th>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">1</td>
                                 <td th:text="${recipe.description}">Soup</td>
-                                <td th:text="${recipe.prepTime}">10</td>
-                                <td th:text="${recipe.cookTime}">15</td>
-                                <td th:text="${recipe.servings}">4</td>
-                                <td th:text="${recipe.source}">Recipe Book</td>
-                                <td th:text="${recipe.url}">www.recipes.de</td>
-                                <td th:text="${recipe.directions}">Cook it.</td>
-                                <td th:text="${recipe.difficulty}">EASY</td>
-                                <td th:text="${recipe.ingredients}">Noodles</td>
-                                <td th:text="${recipe.categories}">Italian</td>
+                                <td><a th:href="@{'/recipes/show/' + ${recipe.id}}">View</a></td>
                             </tr>
                         </table>
                     </div>

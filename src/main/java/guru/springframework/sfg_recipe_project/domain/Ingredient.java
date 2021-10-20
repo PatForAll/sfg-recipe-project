@@ -26,4 +26,8 @@ public class Ingredient {
     @ManyToOne
     private Recipe recipe;
 
+    @Override
+    public String toString() {
+        return amount + " " + uom.getDescription() + " of " + description;
+    }
 }

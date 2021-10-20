@@ -35,7 +35,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Ingredient avocados = new Ingredient();
         avocados.setAmount(BigDecimal.valueOf(2));
-        avocados.setDescription("ripe");
+        avocados.setDescription("ripe Avocado");
         pieces.ifPresent(avocados::setUom);
 
         Optional<Category> mexican = categoryRepository.findByCategoryName("Mexican");
@@ -43,16 +43,19 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Recipe bestGuacamole = new Recipe();
         mexican.ifPresent(category -> bestGuacamole.getCategories().add(category));
         bestGuacamole.setPrepTime(10);
-        bestGuacamole.setCookTime(10);
+        bestGuacamole.setCookTime(0);
         bestGuacamole.setDescription("The best guacamole.");
         bestGuacamole.setDifficulty(Difficulty.EASY);
         bestGuacamole.setDirections("Cut the avocado:\n" +
                 "Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife " +
                 "and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.");
         bestGuacamole.addIngredient(avocados);
-        bestGuacamole.setServings(4);
+        bestGuacamole.setServings(6);
         bestGuacamole.setSource("Simply Recipes");
         bestGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        Notes bgNotes = new Notes();
+        bgNotes.setRecipeNotes("NIIICE!! TASTY!! Good with tacos and other cliche mexican food");
+        bestGuacamole.setNotes(bgNotes);
 
         log.debug("Add " + bestGuacamole.getDescription() + " to repository.");
         recipeRepository.save(bestGuacamole);
