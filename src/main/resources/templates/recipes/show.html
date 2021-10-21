@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Recipe</title>
@@ -17,13 +17,12 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <!--/*@thymesVar id="recipe" type="guru.springframework.sfg_recipe_project.domain.recipe*/-->
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
@@ -33,7 +32,6 @@
                             </div>
                             <div class="col-md-9">
                                 <ul>
-                                    <!--/*@thymesVar id="category" type="guru.springframework.sfg_recipe_project.domain.Category"*/-->
                                     <li th:each="category : ${recipe.categories}"
                                         th:text="${category.categoryName}">cat one
                                     </li>
@@ -92,7 +90,6 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
-                                    <!--/*@thymesVar id="ingredient" type="guru.springframework.sfg_recipe_project.domain.Ingredient"*/-->
                                     <li th:each="ingredient : ${recipe.ingredients}" th:text="${ingredient.toString()}">
                                         1 Cup of something
                                     </li>
