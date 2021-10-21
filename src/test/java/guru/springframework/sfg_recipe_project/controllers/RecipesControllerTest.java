@@ -123,4 +123,13 @@ class RecipesControllerTest {
                 .andExpect(view().name("recipes/recipeform"))
                 .andExpect(model().attributeExists("recipe"));
     }
+
+    @Test
+    void deleteAction() throws Exception {
+        mockMvc.perform(get("/recipes/2/delete"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipes/list"));
+
+        verify(recipeService).deleteById(anyLong());
+    }
 }
