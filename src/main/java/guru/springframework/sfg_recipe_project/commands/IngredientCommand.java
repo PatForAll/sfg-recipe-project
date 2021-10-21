@@ -16,4 +16,9 @@ public class IngredientCommand {
     private BigDecimal amount;
     private UnitOfMeasureCommand uom;
     private Recipe recipe;
+
+    @Override
+    public String toString() {
+        return amount + " " + uom.getDescription() + " of " + description;
+    }
 }

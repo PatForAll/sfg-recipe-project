@@ -32,12 +32,12 @@
                             <thead class="thead-inverse">
                             <th>ID</th>
                             <th>Description</th>
-                            <th>Prep Time</th>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">1</td>
                                 <td th:text="${recipe.description}">Soup</td>
-                                <td><a th:href="@{'/recipes/show/' + ${recipe.id}}">View</a></td>
+                                <td><a th:href="@{'/recipes/' + ${recipe.id} + '/show'}">View</a></td>
+                                <td><a th:href="@{'/recipes/' + ${recipe.id} + '/update'}">Update</a></td>
                             </tr>
                         </table>
                     </div>

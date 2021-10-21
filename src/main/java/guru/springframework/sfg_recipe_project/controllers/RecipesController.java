@@ -43,6 +43,12 @@ public class RecipesController {
         return "recipes/recipeform";
     }
 
+    @RequestMapping("/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model) throws Exception {
+        model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
+        return "recipes/recipeform";
+    }
+
     @PostMapping
     @RequestMapping("")
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
