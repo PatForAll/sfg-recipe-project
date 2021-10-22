@@ -2,7 +2,6 @@ package guru.springframework.sfg_recipe_project.services;
 
 import guru.springframework.sfg_recipe_project.commands.IngredientCommand;
 import guru.springframework.sfg_recipe_project.converters.IngredientToIngredientCommand;
-import guru.springframework.sfg_recipe_project.domain.Ingredient;
 import guru.springframework.sfg_recipe_project.domain.Recipe;
 import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +22,19 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findCommandByRecipeIdAndId(Long recipeId, Long ingredientId) {
+    public IngredientCommand findCommandByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+        //todo: error handling
         if (!recipeOptional.isPresent()) return null;
         Recipe recipe = recipeOptional.get();
 
-        Optional<Ingredient> ingredientOptional = recipe.getIngredients()
+        Optional<IngredientCommand> ingredientOptional = recipe.getIngredients()
                 .stream()
-                .filter(ingredient1 -> ingredient1.getId() == ingredientId)
+                .filter(ingredient -> ingredient.getId().equals(ingredientId))
+                .map(ingredient -> converter.convert(ingredient))
                 .findFirst();
-        return converter.convert(ingredientOptional.orElse(null));
+
+        return ingredientOptional.get();
 
     }
 }

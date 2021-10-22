@@ -25,17 +25,17 @@ class UnitOfMeasureRepositoryIT {
 
     @Test
     void findByDescription() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon(s)");
 
-        assertEquals("Teaspoon", uomOptional.get().getDescription());
+        assertEquals("Teaspoon(s)", uomOptional.get().getDescription());
 
     }
 
     @Test
     void findByDescriptionCup() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
+        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup(s)");
 
-        assertEquals("Cup", uomOptional.get().getDescription());
+        assertEquals("Cup(s)", uomOptional.get().getDescription());
 
     }
 }

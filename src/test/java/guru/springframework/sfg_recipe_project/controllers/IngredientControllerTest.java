@@ -59,7 +59,7 @@ public class IngredientControllerTest {
         IngredientCommand ingredientCommand = new IngredientCommand();
         UnitOfMeasureCommand uomCommand = new UnitOfMeasureCommand();
         ingredientCommand.setUom(uomCommand);
-        when(ingredientService.findCommandByRecipeIdAndId(anyLong(), anyLong())).thenReturn(ingredientCommand);
+        when(ingredientService.findCommandByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
 
         //then
         mockMvc.perform(get("/recipes/1/ingredients/1/show"))
