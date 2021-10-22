@@ -5,6 +5,7 @@ import guru.springframework.sfg_recipe_project.commands.RecipeCommand;
 import guru.springframework.sfg_recipe_project.commands.UnitOfMeasureCommand;
 import guru.springframework.sfg_recipe_project.services.IngredientService;
 import guru.springframework.sfg_recipe_project.services.RecipeService;
+import guru.springframework.sfg_recipe_project.services.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,6 +25,8 @@ public class IngredientControllerTest {
     RecipeService recipeService;
     @Mock
     IngredientService ingredientService;
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
 
     IngredientController controller;
 
@@ -33,7 +36,7 @@ public class IngredientControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        controller = new IngredientController(recipeService, ingredientService);
+        controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -44,7 +47,7 @@ public class IngredientControllerTest {
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 
         //when
-        mockMvc.perform(get("/recipes/1/ingredients"))
+        mockMvc.perform(get("/recipes/1/ingredients/list"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipes/ingredients/list"))
                 .andExpect(model().attributeExists("recipe"));

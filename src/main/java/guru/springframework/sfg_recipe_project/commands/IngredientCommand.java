@@ -18,6 +18,8 @@ public class IngredientCommand {
 
     @Override
     public String toString() {
-        return amount + " " + uom.getDescription() + " of " + description;
+        if (uom != null && uom.getDescription() != null)
+            return amount + " " + uom.getDescription() + " of " + description;
+        return null;
     }
 }
