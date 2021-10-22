@@ -1,6 +1,9 @@
 package guru.springframework.sfg_recipe_project.controllers;
 
+import guru.springframework.sfg_recipe_project.commands.IngredientCommand;
 import guru.springframework.sfg_recipe_project.commands.RecipeCommand;
+import guru.springframework.sfg_recipe_project.commands.UnitOfMeasureCommand;
+import guru.springframework.sfg_recipe_project.services.IngredientService;
 import guru.springframework.sfg_recipe_project.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,8 @@ public class IngredientControllerTest {
 
     @Mock
     RecipeService recipeService;
+    @Mock
+    IngredientService ingredientService;
 
     IngredientController controller;
 
@@ -28,7 +33,7 @@ public class IngredientControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        controller = new IngredientController(recipeService);
+        controller = new IngredientController(recipeService, ingredientService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -41,10 +46,26 @@ public class IngredientControllerTest {
         //when
         mockMvc.perform(get("/recipes/1/ingredients"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipes/ingredient/list"))
+                .andExpect(view().name("recipes/ingredients/list"))
                 .andExpect(model().attributeExists("recipe"));
 
         //then
         verify(recipeService).findCommandById(anyLong());
+    }
+
+    @Test
+    void showIngredient() throws Exception {
+        //given
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        UnitOfMeasureCommand uomCommand = new UnitOfMeasureCommand();
+        ingredientCommand.setUom(uomCommand);
+        when(ingredientService.findCommandByRecipeIdAndId(anyLong(), anyLong())).thenReturn(ingredientCommand);
+
+        //then
+        mockMvc.perform(get("/recipes/1/ingredients/1/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipes/ingredients/show"))
+                .andExpect(model().attributeExists("ingredient"));
+
     }
 }

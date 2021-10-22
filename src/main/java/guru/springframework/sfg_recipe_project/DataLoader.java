@@ -31,11 +31,11 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        Optional<UnitOfMeasure> pieces = unitOfMeasureRepository.findByDescription("Pieces");
+        Optional<UnitOfMeasure> pieces = unitOfMeasureRepository.findByDescription("Piece(s)");
 
         Ingredient avocados = new Ingredient();
         avocados.setAmount(BigDecimal.valueOf(2));
-        avocados.setDescription("ripe Avocado");
+        avocados.setDescription("Ripe Avocado");
         pieces.ifPresent(avocados::setUom);
 
         Optional<Category> mexican = categoryRepository.findByCategoryName("Mexican");

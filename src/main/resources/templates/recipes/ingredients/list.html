@@ -17,7 +17,7 @@
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="contrainer-fluid" style="margin-top: 20px">
+<div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
@@ -40,13 +40,13 @@
                                 <td th:text="${ingredient.id}">123</td>
                                 <td th:text="${ingredient.toString()}">Tasty Goodness 1</td>
                                 <td><a href="#"
-                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a>
+                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredients/' + ${ingredient.id} + '/show'}">View</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
+                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredients/' + ${ingredient.id} + '/update'}">Update</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
+                                       th:href="@{'/recipes/' + ${recipe.id} + '/ingredients/' + ${ingredient.id} + '/delete'}">Delete</a>
                                 </td>
                             </tr>
                         </table>

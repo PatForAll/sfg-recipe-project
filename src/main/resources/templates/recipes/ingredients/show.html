@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredient</title>
+    <!-- Latest compiled and minified CSS -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+
+    <!-- Optional theme -->
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script crossorigin="anonymous"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Ingredient</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>ID</th>
+                                <th>Amount</th>
+                                <th>Unit of Measure</th>
+                                <th>Description</th>
+                                <th>ToString Result</th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td th:text="${ingredient.id}">123</td>
+                                <td th:text="${ingredient.amount}">2</td>
+                                <td th:text="${ingredient.uom.getDescription()}">Cup(s)</td>
+                                <td th:text="${ingredient.description}">Milk</td>
+                                <td th:text="${ingredient.toString()}">2 Cup of Milk</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
