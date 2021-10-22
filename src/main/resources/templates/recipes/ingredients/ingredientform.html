@@ -41,7 +41,7 @@
                                     <select class="form-control" name="uom.id">
                                         <!--/*@thymesVar id="uomEach" type="guru.springframework.sfg_recipe_project.domain.UnitOfMeasure"*/-->
                                         <option th:each="uomEach : ${uomList}"
-                                                th:selected="${uomEach.equals(ingredient.uom)}"
+                                                th:selected="${uomEach.id.equals(ingredient.uom.id)}"
                                                 th:text="${uomEach.description}"
                                                 th:value="${uomEach.id}">Each
                                         </option>
