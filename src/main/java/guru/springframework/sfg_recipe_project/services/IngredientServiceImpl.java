@@ -11,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -67,15 +69,26 @@ public class IngredientServiceImpl implements IngredientService {
                     .findById(command.getUom().getId())
                     .orElseThrow(() -> new RuntimeException("UOM not found!")));
             ingredientFound.setDescription(command.getDescription());
+
+            Recipe savedRecipe = recipeRepository.save(recipe);
+
+            //todo: error handling
+            return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
+                    .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
+                    .findFirst()
+                    .get());
         }
+
+        Set<Long> ingredientIdSet = new HashSet<>();
+        recipe.getIngredients().stream().map(ingredient -> ingredientIdSet.add(ingredient.getId()));
         //todo: error handling
-        else recipe.addIngredient(ingredientCommandToIngredient.convert(command));
+        recipe.addIngredient(ingredientCommandToIngredient.convert(command));
 
         Recipe savedRecipe = recipeRepository.save(recipe);
 
         //todo: error handling
         return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
-                .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
+                .filter(recipeIngredients -> !ingredientIdSet.contains(recipeIngredients.getId()))
                 .findFirst()
                 .get());
     }

@@ -43,8 +43,13 @@ public class IngredientController {
     @GetMapping
     @RequestMapping("/{recipeId}/ingredients/new")
     public String newIngredient(@PathVariable String recipeId, Model model) {
-        model.addAttribute("recipeId", recipeId);
-        model.addAttribute("ingredient", new IngredientCommand());
+
+        //todo: check if recipe actually exists
+        
+        IngredientCommand newIngredient = new IngredientCommand();
+        newIngredient.setRecipeId(Long.parseLong(recipeId));
+        model.addAttribute("ingredient", newIngredient);
+        model.addAttribute("uomList", unitOfMeasureService.listAllUomsAsCommands());
 
         return "recipes/ingredients/ingredientform";
     }
