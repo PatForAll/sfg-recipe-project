@@ -45,7 +45,7 @@ public class IngredientController {
     public String newIngredient(@PathVariable String recipeId, Model model) {
 
         //todo: check if recipe actually exists
-        
+
         IngredientCommand newIngredient = new IngredientCommand();
         newIngredient.setRecipeId(Long.parseLong(recipeId));
         model.addAttribute("ingredient", newIngredient);
@@ -74,5 +74,13 @@ public class IngredientController {
         log.debug("saved ingredientId: " + savedCommand.getId());
 
         return "redirect:/recipes/" + savedCommand.getRecipeId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/{recipeId}/ingredients/{ingredientId}/delete")
+    public String delete(@PathVariable String recipeId, @PathVariable String ingredientId) {
+        ingredientService.deleteByRecipeIdAndIngredientId(Long.parseLong(recipeId), Long.parseLong(ingredientId));
+
+        return "redirect:/recipes/" + recipeId + "/ingredients/list";
     }
 }
