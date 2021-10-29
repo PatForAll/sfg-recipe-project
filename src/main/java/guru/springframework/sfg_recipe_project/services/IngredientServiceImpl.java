@@ -88,7 +88,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         //todo: error handling
         return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
-                .filter(recipeIngredients -> !ingredientIdSet.contains(recipeIngredients.getId()))
+                .filter(recipeIngredient -> !ingredientIdSet.contains(recipeIngredient.getId()))
                 .findFirst()
                 .get());
     }

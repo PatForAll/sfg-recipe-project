@@ -18,8 +18,7 @@ public class RecipesController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String getRecipesList(Model model) {
 
         log.debug("I'm in the recipes list controller!");
@@ -28,38 +27,33 @@ public class RecipesController {
         return "recipes/list";
     }
 
-    @GetMapping
-    @RequestMapping("/{id}/show")
+    @GetMapping("/{id}/show")
     public String showById(Model model, @PathVariable String id) {
         model.addAttribute("recipe", recipeService.findById(Long.parseLong(id)));
         return "recipes/show";
     }
 
-    @GetMapping
-    @RequestMapping("/new")
+    @GetMapping("/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
 
         return "recipes/recipeform";
     }
 
-    @GetMapping
-    @RequestMapping("/{id}/update")
+    @GetMapping("/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) throws Exception {
         model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
         return "recipes/recipeform";
     }
 
-    @PostMapping
-    @RequestMapping("")
+    @PostMapping("")
     public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipes/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("{id}/delete")
+    @GetMapping("{id}/delete")
     public String deleteById(@PathVariable String id) throws Exception {
         recipeService.deleteById(Long.parseLong(id));
         return "redirect:/recipes/list";
