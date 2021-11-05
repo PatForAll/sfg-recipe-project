@@ -99,6 +99,12 @@ class RecipesControllerTest {
     }
 
     @Test
+    public void getBadRequest() throws Exception {
+        mockMvc.perform(get("/recipes/one/show"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void getNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
 
