@@ -3,6 +3,7 @@ package guru.springframework.sfg_recipe_project.services;
 import guru.springframework.sfg_recipe_project.converters.RecipeCommandToRecipe;
 import guru.springframework.sfg_recipe_project.converters.RecipeToRecipeCommand;
 import guru.springframework.sfg_recipe_project.domain.Recipe;
+import guru.springframework.sfg_recipe_project.exceptions.NotFoundException;
 import guru.springframework.sfg_recipe_project.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +14,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
@@ -36,7 +36,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipeById() throws Exception {
+    void getRecipeById() {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -51,7 +51,18 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipes() throws Exception {
+    public void getRecipeByIdNotFound() {
+        assertThrows(NotFoundException.class, () -> {
+            Optional<Recipe> recipeOptional = Optional.empty();
+
+            when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+            Recipe recipeReturned = recipeService.findById(1L);
+        });
+    }
+
+    @Test
+    void getRecipes() {
         Recipe recipe = new Recipe();
         HashSet<Recipe> recipes = new HashSet<>();
         recipes.add(recipe);
@@ -64,7 +75,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void deleteById() throws Exception {
+    void deleteById() {
         //given
         Long idToDelete = 2L;
 
