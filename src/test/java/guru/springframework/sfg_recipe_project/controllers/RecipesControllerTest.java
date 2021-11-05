@@ -113,7 +113,7 @@ class RecipesControllerTest {
 
         mockMvc.perform(get("/recipes/new"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipes/recipeform"))
+                .andExpect(view().name("recipes/recipeForm"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
@@ -127,9 +127,23 @@ class RecipesControllerTest {
         mockMvc.perform(post("/recipes")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("id", "")
-                        .param("description", ""))
+                        .param("description", "Nice stuff.")
+                        .param("directions", "Cook it."))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipes/2/show"));
+    }
+
+    @Test
+    void postNewRecipeFormValidationFailed() throws Exception {
+        RecipeCommand command = new RecipeCommand();
+        command.setId(2L);
+
+        mockMvc.perform(post("/recipes")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", ""))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipe"))
+                .andExpect(view().name("recipes/recipeForm"));
     }
 
     @Test
@@ -141,7 +155,7 @@ class RecipesControllerTest {
 
         mockMvc.perform(get("/recipes/2/update"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipes/recipeform"))
+                .andExpect(view().name("recipes/recipeForm"))
                 .andExpect(model().attributeExists("recipe"));
     }
 

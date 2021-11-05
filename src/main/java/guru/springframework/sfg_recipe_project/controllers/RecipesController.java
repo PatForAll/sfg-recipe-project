@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,24 +42,29 @@ public class RecipesController {
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
 
-        return "recipes/recipeform";
+        return "recipes/recipeForm";
     }
 
     @GetMapping("/{id}/update")
-    public String updateRecipe(@PathVariable String id, Model model) throws Exception {
+    public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
-        return "recipes/recipeform";
+        return "recipes/recipeForm";
     }
 
     @PostMapping("")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@Validated @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
+            return "recipes/recipeForm";
+        }
+
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipes/" + savedCommand.getId() + "/show";
     }
 
     @GetMapping("{id}/delete")
-    public String deleteById(@PathVariable String id) throws Exception {
+    public String deleteById(@PathVariable String id) {
         recipeService.deleteById(Long.parseLong(id));
         return "redirect:/recipes/list";
     }
